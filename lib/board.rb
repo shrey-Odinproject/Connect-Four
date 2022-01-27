@@ -9,6 +9,20 @@ class Board
     check_rows || check_columns || check_diagonals
   end
 
+  def edit_grid(col, sym)
+    depth = 5
+    while depth >= 0
+      if grid[depth][col].nil?
+        grid[depth][col] = sym
+        return
+      else
+        depth -= 1
+      end
+    end
+
+    puts 'Overflow !!!'
+  end
+
   private
 
   def consecutive_4?(array)
@@ -44,7 +58,7 @@ class Board
     pd4 = [grid[5][1], grid[4][2], grid[3][3], grid[2][4], grid[1][5], grid[0][6]]
     pd5 = [grid[5][2], grid[4][3], grid[3][4], grid[2][5], grid[1][6]]
     pd6 = [grid[5][3], grid[4][4], grid[3][5], grid[2][6]]
-    # ssd go from top to bottom
+    # sd go from top to bottom
     sd1 = [grid[2][0], grid[3][1], grid[4][2], grid[5][3]]
     sd2 = [grid[1][0], grid[2][1], grid[3][2], grid[4][3], grid[5][4]]
     sd3 = [grid[0][0], grid[1][1], grid[2][2], grid[3][3], grid[4][4], grid[5][5]]
@@ -58,31 +72,4 @@ class Board
       consecutive_4?(dia)
     end
   end
-
-  # dont need this method anymore as each_cons can cover up for both
-
-  # def win_row?(row)
-  #  # works foe both rows and column so dont need seprate methods to check
-  # # one = row[0..3]
-  # # two = row[1..4]
-  # # three = row[2..5]
-  # # four = row[3..6]
-  # # possible_wins = [one, two, three, four]
-
-  # # possible_wins.any? do |sub_row|
-  # #   all_equal?(sub_row)
-  # # end
-  # end
-
-  # def win_col?(col)
-  #   # one = col[0..3]
-  #   # two = col[1..4]
-  #   # three = col[2..5]
-  #   # possible_wins = [one, two, three]
-
-  #   # possible_wins.any? do |sub_col|
-  #   #   all_equal?(sub_col)
-  #   # end
-
-  # end
 end
