@@ -105,11 +105,47 @@ describe Board do
       before do
         6.times { board_edit.edit_grid(4, 'X') }
       end
-      it 'doesnot edit board instead displays Overflow !!!' do
+      it 'does not edit board instead displays Overflow !!!' do
         col = 4
         sym = 'X'
         expect(board_edit).to receive(:puts).with('Overflow !!!')
         board_edit.edit_grid(col, sym)
+      end
+    end
+  end
+
+  describe '#full?' do
+    subject(:board_full) { described_class.new }
+
+    context 'when board is full ' do
+      before do
+        board_full.instance_variable_set(:@grid, [
+                                           ['X', 'O', 'X', 'O', 'O', 'X', 'O'],
+                                           ['O', 'O', 'X', 'X', 'O', 'X', 'O'],
+                                           ['O', 'X', 'O', 'X', 'O', 'O', 'X'],
+                                           ['X', 'O', 'X', 'O', 'X', 'X', 'O'],
+                                           ['O', 'X', 'O', 'X', 'X', 'O', 'X'],
+                                           ['O', 'X', 'O', 'X', 'O', 'O', 'X']
+                                         ])
+      end
+      it 'returns true' do
+        expect(board_full).to be_full
+      end
+    end
+
+    context 'when board is not full ' do
+      before do
+        board_full.instance_variable_set(:@grid, [
+                                           ['X', 'O', 'X', 'O', 'O', 'X', 'O'],
+                                           ['O', 'O', 'X', 'X', 'O', 'X', 'O'],
+                                           ['O', nil, 'O', 'X', 'O', 'O', 'X'],
+                                           ['X', 'O', 'X', 'O', 'X', 'X', 'O'],
+                                           ['O', 'X', 'O', 'X', 'X', 'O', 'X'],
+                                           ['O', 'X', 'O', 'X', 'O', 'O', 'X']
+                                         ])
+      end
+      it 'returns false' do
+        expect(board_full).not_to be_full
       end
     end
   end

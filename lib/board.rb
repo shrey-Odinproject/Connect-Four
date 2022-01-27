@@ -9,6 +9,10 @@ class Board
     check_rows || check_columns || check_diagonals
   end
 
+  def full?
+    (grid.flatten - [nil]).length == 42
+  end
+
   def edit_grid(col, sym)
     depth = 5
     while depth >= 0
