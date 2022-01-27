@@ -27,6 +27,17 @@ class Board
     puts 'Overflow !!!'
   end
 
+  def show
+    print ' 0  1  2  3  4  5  6'
+    puts
+    grid.each do |row|
+      row.each do |elm|
+        print " #{elm} "
+      end
+      puts
+    end
+  end
+
   private
 
   def consecutive_4?(array)

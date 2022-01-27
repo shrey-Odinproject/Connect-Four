@@ -75,7 +75,7 @@ describe Board do
     end
   end
 
-  describe '#edit_board' do
+  describe '#edit_grid' do
     subject(:board_edit) { described_class.new }
 
     context 'when no previous edits made i.e depth 5' do
