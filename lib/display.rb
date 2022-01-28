@@ -11,7 +11,7 @@ module Display
     'Erronous input ! try again'
   end
 
-  def display_ask_input(name,symbol)
+  def display_ask_input(name, symbol)
     "#{name} which column to place #{symbol} in ?"
   end
 
