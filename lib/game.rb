@@ -1,10 +1,13 @@
 require './lib/display'
+# handles gameplay
 class Game
   include Display
+  attr_reader :board
+
   def initialize
     @board = Board.new
-    @player_1 = nil
-    @player_2 = nil
+    @player1 = nil
+    @player2 = nil
     @current_player = nil
   end
 
@@ -14,7 +17,7 @@ class Game
     Player.new(name, symbol)
   end
 
-  def give_valid_input(name, symbol)
+  def get_valid_input(name, symbol)
     loop do
       input = ask_player_input(name, symbol)
       return input.to_i if valid?(input)
@@ -30,5 +33,13 @@ class Game
 
   def valid?(input)
     input !~ /\D/ && input.to_i >= 0 && input.to_i <= 6
+  end
+
+  def make_move(player)
+    name = player.name
+    symbol = player.symbol
+    col = get_valid_input(name, symbol)
+    board.edit_grid(col, symbol)
+    board.show
   end
 end
