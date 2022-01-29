@@ -29,9 +29,11 @@ describe Game do
   describe '#get_valid_input' do
     context 'when entering a valid input' do
       it 'returns input' do
+        board = game.instance_variable_get(:@board)
         name = 'shrey'
         symbol = "\u26bd"
         valid = '3'
+        allow(board).to receive(:full_column?).with(valid.to_i).and_return(false)
         allow(game).to receive(:ask_player_input).with(name, symbol).and_return(valid)
         tst = game.get_valid_input(name, symbol)
         expect(tst).to eq(valid.to_i)
@@ -40,13 +42,31 @@ describe Game do
 
     context 'when entering 2 invalid and then 1 valid input' do
       it 'displays error msg twice' do
+        board = game.instance_variable_get(:@board)
         name = 'shrey'
         symbol = "\u26bd"
         invalid1 = '12'
         invalid2 = 'a'
         valid = '3'
+        # this methods is only callled for valid input - '3' as 'valid?' returns false before even reaching the last overflow check case
+        allow(board).to receive(:full_column?).with(valid.to_i).and_return(false)
         allow(game).to receive(:ask_player_input).with(name, symbol).and_return(invalid1, invalid2, valid)
         expect(game).to receive(:puts).with("Erronous input ! try again").twice
+        game.get_valid_input(name, symbol)
+      end
+    end
+
+    context 'when entering overflow column and then a non_full column' do
+      it 'displays error msg once' do
+        board = game.instance_variable_get(:@board)
+        name = 'shrey'
+        symbol = "\u26bd"
+        overflow = '3'
+        valid = '4'
+        allow(game).to receive(:ask_player_input).with(name, symbol).and_return(overflow, valid)
+        allow(board).to receive(:full_column?).with(overflow.to_i).and_return(true).once
+        allow(board).to receive(:full_column?).with(valid.to_i).and_return(false).once
+        expect(game).to receive(:puts).with('Erronous input ! try again').once
         game.get_valid_input(name, symbol)
       end
     end
