@@ -1,3 +1,5 @@
+# frozen_string_literal:true
+
 require './lib/game'
 require_relative '../lib/board'
 require './lib/player'

@@ -1,6 +1,8 @@
+# frozen_string_literal:true
+
 module Display
   def display_intro
-    'starting new game of connect four ...'
+    'starting a new game of connect four ...'
   end
 
   def display_ask_player_name(num)

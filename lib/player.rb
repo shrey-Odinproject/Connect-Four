@@ -1,3 +1,6 @@
+# frozen_string_literal:true
+
+# To make player objects
 class Player
   attr_reader :name, :symbol
 

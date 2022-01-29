@@ -1,5 +1,7 @@
-require './lib/board'
+# frozen_string_literal:true
 
+require './lib/board'
+# represents the game board
 describe Board do
   describe '#win?' do
     subject(:board_win) { described_class.new }

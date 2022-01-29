@@ -1,3 +1,5 @@
+# frozen_string_literal:true
+
 require './lib/display'
 # handles gameplay
 class Game
@@ -35,6 +37,16 @@ class Game
     input !~ /\D/ && input.to_i >= 0 && input.to_i <= 6
   end
 
+  def keep_playing
+    @current_player = player1
+    until board.full?
+      make_move(current_player)
+      break if board.win?
+
+      @current_player = switch_players
+    end
+  end
+
   def make_move(player)
     name = player.name
     symbol = player.symbol
@@ -51,16 +63,6 @@ class Game
     end
   end
 
-  def keep_playing
-    @current_player = player1
-    until board.full? do
-      make_move(current_player)
-      break if board.win?
-
-      @current_player = switch_players
-    end
-  end
-
   def final_message
     if board.win?
       puts display_win_message(current_player.name)
@@ -71,11 +73,12 @@ class Game
 
   def game_setup
     puts display_intro
+    puts
     @player1 = setup_player(1, "\u26bd")
     @player2 = setup_player(2, "\u26be")
   end
 
-  def main
+  def play
     game_setup
     board.show
     keep_playing
