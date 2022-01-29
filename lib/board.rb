@@ -40,6 +40,10 @@ class Board
     end
   end
 
+  def full_column?(input)
+    @grid[0][input] != nil
+  end
+
   private
 
   def consecutive_4?(array)

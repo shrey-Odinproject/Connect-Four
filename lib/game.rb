@@ -34,7 +34,7 @@ class Game
   end
 
   def valid?(input)
-    input !~ /\D/ && input.to_i >= 0 && input.to_i <= 6
+    input !~ /\D/ && input.to_i >= 0 && input.to_i <= 6 && !board.full_column?(input.to_i)
   end
 
   def keep_playing
