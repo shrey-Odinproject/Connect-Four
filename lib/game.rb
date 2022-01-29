@@ -50,4 +50,35 @@ class Game
       player1
     end
   end
+
+  def keep_playing
+    @current_player = player1
+    until board.full? do
+      make_move(current_player)
+      break if board.win?
+
+      @current_player = switch_players
+    end
+  end
+
+  def final_message
+    if board.win?
+      puts display_win_message(current_player.name)
+    else
+      puts display_draw_message
+    end
+  end
+
+  def game_setup
+    puts display_intro
+    @player1 = setup_player(1, "\u26bd")
+    @player2 = setup_player(2, "\u26be")
+  end
+
+  def main
+    game_setup
+    board.show
+    keep_playing
+    final_message
+  end
 end
