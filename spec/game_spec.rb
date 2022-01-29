@@ -66,4 +66,16 @@ describe Game do
       end
     end
   end
+
+  describe '#switch_players' do
+    describe 'when player 1 is current player' do
+      it 'returns player 2' do
+        game.instance_variable_set(:@player1, instance_double(Player))
+        game.instance_variable_set(:@player2, instance_double(Player))
+        game.instance_variable_set(:@current_player, game.player1)
+        tst=game.switch_players
+        expect(tst).to eq(game.player2)
+      end
+    end
+  end
 end

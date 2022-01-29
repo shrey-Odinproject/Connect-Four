@@ -2,7 +2,7 @@ require './lib/display'
 # handles gameplay
 class Game
   include Display
-  attr_reader :board
+  attr_reader :board, :current_player, :player1, :player2
 
   def initialize
     @board = Board.new
@@ -41,5 +41,13 @@ class Game
     col = get_valid_input(name, symbol)
     board.edit_grid(col, symbol)
     board.show
+  end
+
+  def switch_players
+    if current_player == player1
+      player2
+    else
+      player1
+    end
   end
 end
