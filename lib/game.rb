@@ -74,8 +74,8 @@ class Game
   def game_setup
     puts display_intro
     puts
-    @player1 = setup_player(1, "\u26bd")
-    @player2 = setup_player(2, "\u26be")
+    @player1 = setup_player(1, 'X')
+    @player2 = setup_player(2, 'O')
   end
 
   def play
